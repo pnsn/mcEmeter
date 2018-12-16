@@ -1,0 +1,69 @@
+mcEmeterCalibratin.ino is a calibration program for the 
+dual-current-range mcEmeter. 
+It runs on the Arduino monitor. 
+
+Here is the procedure:
+
+1) Set up a power supply and load resistor to produce 
+a  test current between 0.9 and 1.0 amps. Connect the 
+eMeter to the circuit. Monitor this current and the 
+load resistor voltage with an accurate DMM. To avoid 
+the burden voltage of the ammeter, the current should 
+be measured at the positive side of the load (L+) and 
+should not include the mcEmeter operating current. See 
+the attached drawing, mcEmeterCalSetup.jpg. The accuracy of 
+the mcEmeter calibration will depend on the meter!
+
+2) Measure the 1.1 V analog reference voltage on the 
+proto-shield. This is on the second digital I/O plug, 
+marked "Aref". Enter this value in the calibration 
+program under GLOBAL VARIABLES as vREF = 1.xxx. Enter 
+the value of the eMeter current shunt, shunt = 0.XX. It 
+is best not to use an ohm-meter to get this value 
+because contact and meter-lead resistance make low 
+resistance readings inaccurate. Instead, read the 
+voltage across the shunt when it is in the test 
+circuit. Use this voltage and the measured current 
+through the shunt to calculate its resistance, R = E / 
+I. Or, use the nominal resistance of a precision shunt
+
+3) Upload the program mcEmeterCalibration.ino. Start the Arduino 
+monitor. The monitor will show uncalibrated values for 
+Iload1, Iload2, Vload and Pload.
+
+4) It is necessary to start with calibration of Iload1 
+because the burden voltage of the eMeter shunt can only 
+be subtracted from the measurement of Vload when Iload1 
+is known. Compare the value of Iload1 to the current 
+measurement of the DMM. If the readings disagree, 
+adjust the scale factor sfI1 in GLOBAL VARIABLES. A 
+systematic correction can be made from the following 
+calculation.
+
+new sfI1 = (Idmm / Iload1)*(old sfI1)
+
+Repeat until the readings agree.
+
+5) After Iload1 is calibrated, get agreement between 
+the Vload reading and the DMM measurement of the 
+voltage across load. In the program under GLOBAL 
+VARIABLES change the value of of the voltage scale 
+factor, sfV, until the measurements match. A systematic 
+correction can be made from the following calculation.
+
+new sfV = (Vdmm / Vload)*(old sfV).
+
+6) The high current measurement, Iload2 is used when 
+the current is greater than 1 amp. If possible, change 
+the test setup to produce a higher current. The maximum 
+is 10 A but this may be difficult to obtain. However, 
+use as high a test current as possible. If it is not 
+possible to increase the test current, the Iload1 test 
+current between 0.9 and 1.0 A can be used with some 
+sacrifice in accuracy. Adjust the scale factor sfI2 in 
+GLOBAL VARIABLES until Iload2 and the DMM current 
+readings agree.
+
+7) Check the Pload reading against the power calculated 
+from the DMM voltage and current. They should agree 
+within 2%.
