@@ -8,11 +8,11 @@
 const int adcPinI1 = 0; // current shunt measurement
 const int adcPinV = 1;// supply voltage measurement
 const int adcPinI2 = 2;
-float vRef = 1.100 ; // measured ADC reference voltage for Uno 3
-float sfV = 25.0 ; // Input voltage calibration scale-factor (Vin/Vout)
-float sfI1 = 1.00 ; // Input current calibration scale-factor (Ain/Vout)
-float sfI2 = 10.00 ; // Input current calibration scale-factor (Ain/Vout)
-float shunt = 0.1 ; // measurement shunt value (0 for probe)
+float vRef = 1.097 ; // measured ADC reference voltage for Uno 3
+float sfV = 26.623 ; // (25 default) Input voltage calibration scale-factor (Vin/Vout)
+float sfI1 = .8984 ; // (1 default) Input current calibration scale-factor (Ain/Vout)
+float sfI2 = 9.891 ; // (10 default )Input current calibration scale-factor (Ain/Vout)
+float shunt = 0.0989 ; // measurement shunt value (0 for probe)
 float sfADC = 1023.0 / vRef; // scale factor for ADC measurements
 
 //FUNCTION DECLARATIONS
