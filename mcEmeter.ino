@@ -28,13 +28,13 @@ LiquidCrystal_I2C lcd(0x27, 20, 4); // LCD address 0x27, 20 characters, 4 lines
 const int adcPinI1 = 0; // Low current measurement pin
 const int adcPinV = 1; // Supply voltage measurement pin
 const int adcPinI2 = 2; // High current measurement pin
-const float rangeSW = 1.00; // Range switching threshold
+const float rangeSW = .9; // Range switching threshold
 const int inputPin = 5; // Run pushbutton input pin
-float vRef = 1.0865 ; // measured ADC reference voltage
-float sfI1 = 0.9878 ; // current1 calibration scale-factor
-float sfI2 = 10.1682; // current1 calibration scale-factor
-float sfV = 25.03  ; // voltage calibration scale-factor
-float shunt = 0.10; // measurement shunt value
+float vRef = 1.097 ; // measured ADC reference voltage
+float sfI1 = .8984 ; // current1 calibration scale-factor
+float sfI2 = 9.891; // current1 calibration scale-factor
+float sfV = 26.623 ; // voltage calibration scale-factor
+float shunt = 0.0989; // measurement shunt value
 float sfADC = 1023.0 / vRef; // scale factor for ADC measurements
 float lossComp = 1.003 ; // initial compensation for time lost in other functions
 float samTime;
@@ -213,7 +213,7 @@ float sliceE()
   float voltage = sfV * (Vadc / sfADC); // voltage calc
   float current2 = sfI2 * (Iadc2 / sfADC);// high range current calc
   float current = current1;
-  if (current > 1.00) // current range switch
+  if (current > rangeSW) // current range switch
   {
   current = current2;
   }
